@@ -1,0 +1,9 @@
+<h2 class="active">Posts</h2>
+<div class="btn-group mb-2" role="group">
+  <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active':!postService.selectedCategory}"
+    (click)="filter(undefined)">Tutti</button>
+  <button type="button" class="btn btn-outline-secondary" [ngClass]="{'active':postService.selectedCategory == c}"
+    *ngFor="let c of postService.getCategories()" (click)="filter(c)">{{c.title}}</button>
+</div>
+
+<app-post-detail *ngFor="let p of posts" [post]="p"></app-post-detail>

@@ -1,0 +1,9 @@
+<div *ngIf="post" class="card mb-2">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{post.category}}</h6>
+    <em>Data pubblicazione: {{post.date | date}}</em>
+    <br>
+    <button type="button" class="btn btn-primary" (click)="ps.aggiungiAPreferiti(post)">Aggingi a preferiti</button>
+  </div>
+</div>
