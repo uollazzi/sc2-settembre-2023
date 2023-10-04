@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { Post, PostCategory } from '../models/blog';
 
@@ -7,11 +7,15 @@ import { Post, PostCategory } from '../models/blog';
   templateUrl: './posts-list.component.html',
   styleUrls: ['./posts-list.component.css']
 })
-export class PostsListComponent implements OnInit {
+export class PostsListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
 
   constructor(public postService: PostsService) {
 
+  }
+
+  ngOnDestroy(): void {
+    //
   }
 
   ngOnInit(): void {
@@ -19,7 +23,9 @@ export class PostsListComponent implements OnInit {
   }
 
   getPosts() {
-    this.posts = this.postService.getPosts();
+    this.postService.getPosts().subscribe(dati => {
+      this.posts = dati;
+    });
   }
 
   filter(cat?: PostCategory) {

@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { BLOG } from '../data/blog';
 import { Blog, Post, PostCategory } from '../models/blog';
 import * as _ from "lodash";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
+
+  baseURL = "http://localhost:3000";
 
   blog: Blog = BLOG;
 
@@ -14,11 +18,13 @@ export class PostsService {
 
   selectedCategory?: PostCategory;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPosts(): Post[] {
+  getPosts(): Observable<Post[]> {
     this.selectedCategory = undefined;
-    return this.blog.posts;
+
+    return this.http.get<Post[]>(this.baseURL + "/posts");
+    // return this.blog.posts;
 
   }
 
